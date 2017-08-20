@@ -2,7 +2,7 @@
  * Generator.cpp
  *
  *  Created on: Aug 14, 2017
- *      Author: minerva
+ *      Author: EmergencyTemporalShift
  */
 
 #include "PointGenerator.h"
