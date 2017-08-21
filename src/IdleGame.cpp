@@ -50,6 +50,10 @@ int main(int argc, char** argv) {
 		 */
 		if(i%10==0) {
 			printf("New Points: %f, ", p.GeneratePoints( ));
+			/* %f shows 0.000000, but %g shows really small numbers like 1.97626e-323
+			 * Does this have to do with the way doubles are stored?
+			 * TODO: Find a way to display globalPoints properly
+			 */
 			printf("Total Points: %g\r\n", globalPoints);
 		}
 

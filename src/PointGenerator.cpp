@@ -28,7 +28,7 @@ PointGenerator::PointGenerator(float cost, float pointRate, int index) {
 	PointGenerator::numGenerators += 1;
 	// Here is where my problem is. What are the correct arguments for this function?
 	// TODO: XXX: Fix arguments.
-	allGenerators.insert(genIter, this);
+	//allGenerators.insert(genIter, this);
 }
 
 PointGenerator::~PointGenerator() {
