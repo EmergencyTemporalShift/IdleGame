@@ -56,6 +56,18 @@ int PointGenerator::Subtract( void ) {
 	return PointGenerator::SubtractAmount( 1 );
 }
 
+// I think this works, test later
+int PointGenerator::BuyUpTo( int number ) {
+	int max = (globalPoints / this->cost);
+	if (number > max) {
+		PointGenerator::BuyAmount( max );
+		return max;
+	} else {
+		PointGenerator::BuyAmount( number );
+		return number;
+	}
+}
+
 bool PointGenerator::BuyAmount( int number ) {
 	// Might make cost increase after each one, for diminishing returns.
 	if (globalPoints >= (number * this->cost)) {
@@ -89,7 +101,7 @@ static double GenerateAllPoints( void ) {
 	return totalPointsGenerated;
 }
 // One of the next two functions might be better?
-static double GeneratePoints( PointGenerator pointGenerator ) { // PointGenerator pointGenerator ) {
+static double GeneratePoints( PointGenerator pointGenerator ) {
 	// TODO: Make this use delta time;
 	double pointsGenerated = pointGenerator.amount * pointGenerator.pointRate;
 	globalPoints += pointsGenerated;

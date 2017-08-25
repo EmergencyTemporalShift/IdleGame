@@ -27,6 +27,7 @@ public:
 	int Add ( void );
 	int SubtractAmount( int number );
 	int Subtract( void );
+	int BuyUpTo( int number );
 	bool BuyAmount( int number);
 	bool Buy( void );
 	int BuyMax( void );
