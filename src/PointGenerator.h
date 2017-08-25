@@ -25,11 +25,13 @@ public:
 	double pointRate; // How many points does this PointGenerator give
 	int AddAmount( int number );
 	int Add ( void );
-	int SubAmount( int number );
-	int Sub( void );
+	int SubtractAmount( int number );
+	int Subtract( void );
 	bool BuyAmount( int number);
 	bool Buy( void );
 	int BuyMax( void );
+	static double GenerateAllPoints( void );
+	static double GeneratePoints( PointGenerator pointGenerator );
 	double GeneratePoints( void );
 	int getAmount( void );
 	void setAmount(int amount );

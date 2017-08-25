@@ -48,12 +48,12 @@ int PointGenerator::Add( void ) {
 	return PointGenerator::AddAmount( 1 );
 }
 
-int PointGenerator::SubAmount( int number ) {
+int PointGenerator::SubtractAmount( int number ) {
 	return this->amount -= number;
 }
 
-int PointGenerator::Sub( void ) {
-	return PointGenerator::SubAmount( 1 );
+int PointGenerator::Subtract( void ) {
+	return PointGenerator::SubtractAmount( 1 );
 }
 
 bool PointGenerator::BuyAmount( int number ) {
@@ -79,12 +79,28 @@ int PointGenerator::BuyMax( void ) {
 	return numberToBuy;
 }
 
-double PointGenerator::GeneratePoints( void ) { // PointGenerator pointGenerator ) {
-	// TODO: Make this iterate over all generators in allGenerators
+static double GenerateAllPoints( void ) {
+	double totalPointsGenerated = 0;
+	std::list<PointGenerator>::iterator genIter;
+	for (genIter = allGenerators.begin(); genIter != allGenerators.end(); ++genIter) {
+		//How do you use iterators?
+		//totalPointsGenerated += GeneratePoints( genIter );
+	}
+	return totalPointsGenerated;
+}
+// One of the next two functions might be better?
+static double GeneratePoints( PointGenerator pointGenerator ) { // PointGenerator pointGenerator ) {
 	// TODO: Make this use delta time;
-	double pointsGenned = this->amount * this->pointRate;
-	globalPoints += pointsGenned;
-	return pointsGenned;
+	double pointsGenerated = pointGenerator.amount * pointGenerator.pointRate;
+	globalPoints += pointsGenerated;
+	return pointsGenerated;
+	}
+
+double PointGenerator::GeneratePoints( void ) {
+	// TODO: Make this use delta time;
+	double pointsGenerated = this->amount * this->pointRate;
+	globalPoints += pointsGenerated;
+	return pointsGenerated;
 	}
 
 int PointGenerator::getAmount( void ) {
