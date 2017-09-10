@@ -16,14 +16,11 @@
 
 #include "Game.h"
 
-	//double gamePoints = 0;
-	std::chrono::high_resolution_clock Clock;
+//std::chrono::high_resolution_clock Clock;
 
-	// This apparently assigns the right type to these variables
-	//std::chrono::milliseconds newTime;
-	std::chrono::_V2::system_clock::time_point newTime   =  (std::chrono::high_resolution_clock::now());
-	std::chrono::_V2::system_clock::time_point oldTime   = newTime;
-	std::chrono::_V2::system_clock::duration deltaTime = newTime - oldTime;
+std::chrono::_V2::system_clock::time_point newTime   = std::chrono::high_resolution_clock::now();
+std::chrono::_V2::system_clock::time_point oldTime   = newTime;
+std::chrono::_V2::system_clock::duration   deltaTime = newTime - oldTime;
 
 
 Game::Game() {
@@ -39,7 +36,7 @@ Game::~Game() {
 
 void Game::updateDelta() {
 	this->oldTime   = newTime;
-	this->newTime   =  (std::chrono::_V2::system_clock::now());
+	this->newTime   = std::chrono::_V2::system_clock::now();
 	this->deltaTime = newTime - oldTime;
 }
 

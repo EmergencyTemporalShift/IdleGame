@@ -19,6 +19,8 @@
  *      cool stuff.
  */
 
+final int STEPTIME = 50;
+
 // For Interrupts (Doesn't work)
 static volatile sig_atomic_t flag = 0;
 void sigint(int sig) { // can be called asynchronously
@@ -77,7 +79,7 @@ int main(int argc, char** argv) {
 		// Save a string maybe?
 
 		// Sleep for a tenth of a seconds
-		std::this_thread::sleep_for(std::chrono::milliseconds (100));
+		std::this_thread::sleep_for(std::chrono::milliseconds (STEPTIME));
 		//printf("%li\n", deltaTime); // TODO: Find out how to print durations
 	}
 	// Broken out of the loop, finish up.
