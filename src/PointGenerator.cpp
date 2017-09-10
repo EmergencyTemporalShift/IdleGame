@@ -78,7 +78,10 @@ bool PointGenerator::BuyAmount( int number ) {
 		return true;
 	} else {
 		// I might want to buy as many as possible under the number specified.
-		fprintf(stderr, "Not Enough Points\n");
+		// Use BuyMax for that
+		fprintf(stderr, "Not Enough Points;\n");
+		fprintf(stderr, "There are %f points available,\n", game.getPoints());
+		fprintf(stderr, "but you tried to buy %i PointGenerators for %f points\n", number, number * this->cost);
 		return false;
 	}
 }
