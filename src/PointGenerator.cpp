@@ -9,7 +9,9 @@
 #include "stdio.h"
 #include <list>
 
-extern int globalPoints;
+#include "Game.h"
+
+extern Game game;
 
 int PointGenerator::numGenerators = 0;
 // These complain if defined in the header and don't if defined here
@@ -58,7 +60,7 @@ int PointGenerator::Subtract( void ) {
 
 // I think this works, test later
 int PointGenerator::BuyUpTo( int number ) {
-	int max = (globalPoints / this->cost);
+	int max = ( game.getPoints() / this->cost );
 	if (number > max) {
 		PointGenerator::BuyAmount( max );
 		return max;
@@ -70,8 +72,8 @@ int PointGenerator::BuyUpTo( int number ) {
 
 bool PointGenerator::BuyAmount( int number ) {
 	// Might make cost increase after each one, for diminishing returns.
-	if (globalPoints >= (number * this->cost)) {
-		globalPoints -= (number * this->cost);
+	if ( game.getPoints() >= (number * this->cost)) {
+		game.subtractPoints(number * this->cost);
 		this->amount += number;
 		return true;
 	} else {
@@ -86,7 +88,14 @@ bool PointGenerator::Buy( void ) {
 }
 
 int PointGenerator::BuyMax( void ) {
-	int numberToBuy = globalPoints / this->cost;
+	// This won't work if price doesn't remain constant.
+	int numberToBuy = game.getPoints() / this->cost;
+	PointGenerator::BuyAmount( numberToBuy );
+	return numberToBuy;
+}
+
+int PointGenerator::BuyPartMax( float partOfMax ) {
+	int numberToBuy = game.getPoints() * partOfMax / this->cost + 1; // Round up
 	PointGenerator::BuyAmount( numberToBuy );
 	return numberToBuy;
 }
@@ -96,7 +105,7 @@ static double GenerateAllPoints( void ) {
 	std::list<PointGenerator>::iterator genIter;
 	for (genIter = allGenerators.begin(); genIter != allGenerators.end(); ++genIter) {
 		//How do you use iterators?
-		//totalPointsGenerated += GeneratePoints( genIter );
+		//totalPointsGenerated += *genIterGeneratePoints(  );//GeneratePoints( genIter* );
 	}
 	return totalPointsGenerated;
 }
@@ -104,14 +113,14 @@ static double GenerateAllPoints( void ) {
 static double GeneratePoints( PointGenerator pointGenerator ) {
 	// TODO: Make this use delta time;
 	double pointsGenerated = pointGenerator.amount * pointGenerator.pointRate;
-	globalPoints += pointsGenerated;
+	game.addPoints( pointsGenerated );
 	return pointsGenerated;
 	}
 
 double PointGenerator::GeneratePoints( void ) {
 	// TODO: Make this use delta time;
 	double pointsGenerated = this->amount * this->pointRate;
-	globalPoints += pointsGenerated;
+	game.addPoints( pointsGenerated );
 	return pointsGenerated;
 	}
 

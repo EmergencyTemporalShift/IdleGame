@@ -6,6 +6,7 @@
 
 
 #include "PointGenerator.h"
+#include "Game.h"
 
 /*
  * Idle Game
@@ -18,26 +19,19 @@
  *      cool stuff.
  */
 
-double globalPoints = 0; // This is how many points we have
-std::chrono::high_resolution_clock Clock;
-
-// This apparently assigns the right type to these variables
-//std::chrono::milliseconds newTime;
-auto newTime   =  (std::chrono::high_resolution_clock::now());
-auto oldTime   = newTime;
-auto deltaTime = newTime-oldTime;
-
 // For Interrupts (Doesn't work)
-volatile sig_atomic_t flag = 0;
-void sigint(int sig){ // can be called asynchronously
+static volatile sig_atomic_t flag = 0;
+void sigint(int sig) { // can be called asynchronously
 	flag = 1; // set flag
 }
+
+// Define the game
+Game game = Game();
 
 
 int main(int argc, char** argv) {
 	// This causes a segfault in bash and does nothing in eclipse
-	//signal(SIGINT, sigint);
-
+	signal(SIGINT, sigint);
 	// Define the first generator
 	PointGenerator p(16, 1, 0);
 
@@ -47,46 +41,48 @@ int main(int argc, char** argv) {
 	 */
 	p.Add();
 	// Infinite loop. Turns out you can just skip the test in a for loop
-	for (int i; ;i++) {
+	for (int i; i<1000; i++) {
 		// Figure out deltaTime
-		oldTime   = newTime;
-		newTime   = std::chrono::high_resolution_clock::now();
-		deltaTime = newTime - oldTime;
+		game.updateDelta();
 
 		/*
 		 * Prints how many points are generated (by generating them) and
-		 * how many globalPoints there are every ten loops.
+		 * how many gamePoints there are every ten loops.
 		 * TODO: Make dependent on time (Event driven?)
 		 */
 		if(i%10==0) {
-			printf("New Points: %f, ", p.GeneratePoints( ));
+			printf("New Points: %i, ", (int) p.GeneratePoints( ));
 			/*
 			 * %f shows 0.000000, but %g shows really small numbers like 1.97626e-323
 			 * Does this have to do with the way doubles are stored?
 			 * TODO: Find a way to display globalPoints properly
 			 */
-			printf("Total Points: %g\r\n", globalPoints);
+			printf("Total Points: %g\n", game.getPoints());
 
 			/*
 			 * Buy as many PointGenerators as it can and prints how many it bought
 			 * (It's broken into two lines do to weird run order.)
 			 */
 			if(i%100==0) {
-				printf("Bought %i PointGenerators for a total of ", p.BuyMax( ));
-				printf("%i\r\n", p.getAmount());
+				printf("Bought %i PointGenerators for a total of ", p.BuyPartMax(0.1));
+				printf("%i\n", p.getAmount());
 			}
 		}
-		if(flag) {
-			printf("Exiting loop");
-			break;
-		}
-		//TODO: Find out how to take an input while spamming the console with junk.
+			if(flag) {
+						printf("\b\bInterupt Detected, finishing.\n");
+						break;
+					}
+		// TODO: Find out how to take an input while spamming the console with junk.
+		// Save a string maybe?
 
 		// Sleep for a tenth of a seconds
 		std::this_thread::sleep_for(std::chrono::milliseconds (100));
 		//printf("%li\n", deltaTime); // TODO: Find out how to print durations
 	}
 	// Broken out of the loop, finish up.
+	printf("There are %i PointGenerators.\n", p.getAmount());
+	printf("There are %f gamePoints.\n", game.getPoints());
+
 	if(flag) {
 		printf("Control C pressed");
 		return 1;

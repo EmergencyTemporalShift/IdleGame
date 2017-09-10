@@ -31,6 +31,7 @@ public:
 	bool BuyAmount( int number);
 	bool Buy( void );
 	int BuyMax( void );
+	int BuyPartMax( float partOfMax );
 	static double GenerateAllPoints( void );
 	static double GeneratePoints( PointGenerator pointGenerator );
 	double GeneratePoints( void );
