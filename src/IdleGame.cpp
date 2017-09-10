@@ -19,7 +19,7 @@
  *      cool stuff.
  */
 
-final int STEPTIME = 50;
+int STEPTIME = 50;
 
 // For Interrupts (Doesn't work)
 static volatile sig_atomic_t flag = 0;
