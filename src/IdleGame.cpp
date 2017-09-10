@@ -69,9 +69,10 @@ int main(int argc, char** argv) {
 			}
 		}
 			if(flag) {
-						printf("\b\bInterupt Detected, finishing.\n");
-						break;
-					}
+				// '\b\b' Removes the ^C it adds.
+				printf("\b\bInterupt Detected, finishing.\n");
+				break;
+			}
 		// TODO: Find out how to take an input while spamming the console with junk.
 		// Save a string maybe?
 
