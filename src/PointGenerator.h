@@ -13,7 +13,7 @@
 class PointGenerator {
 public:
 	PointGenerator(float cost, float pointRate, int index);
-	virtual ~PointGenerator();
+	virtual ~PointGenerator( void );
 	static int numGenerators;
 	// The compiler complains when these are defined here.
 	//static std::list<PointGenerator> allGenerators;
@@ -23,6 +23,9 @@ public:
 	int amount;       // How many of this PointGenerator are owned
 	double cost;      // How much does this PointGenerator cost
 	double pointRate; // How many points does this PointGenerator give
+
+	void collapseAllGenerators( void );
+
 	int AddAmount( int number );
 	int Add ( void );
 	int SubtractAmount( int number );

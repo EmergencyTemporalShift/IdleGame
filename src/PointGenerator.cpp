@@ -17,7 +17,7 @@ int PointGenerator::numGenerators = 0;
 // These complain if defined in the header and don't if defined here
 static std::list<PointGenerator> allGenerators;
 // I'm going to be honest, I have no idea what the iterator is for.
-static std::list<PointGenerator>::iterator genIter = allGenerators.begin();
+//static std::list<PointGenerator>::iterator genIter = allGenerators.begin();
 
 PointGenerator::PointGenerator(float cost, float pointRate, int index) {
 	this->cost = cost;
@@ -39,7 +39,14 @@ PointGenerator::~PointGenerator() {
 	// Decrease the total amount of generators
 	PointGenerator::numGenerators -= 1;
 	// TODO: Change genIter to point to the wanted PointGenerator maybe?
-	allGenerators.erase(genIter);
+	//allGenerators.erase(genIter);
+}
+
+void PointGenerator::collapseAllGenerators( void ) {
+	/* This method will take the indexes of all the pointGenerators in
+	 * allGenerators and make them sequential
+	 */
+
 }
 
 int PointGenerator::AddAmount( int number ) {
@@ -72,7 +79,7 @@ int PointGenerator::BuyUpTo( int number ) {
 
 bool PointGenerator::BuyAmount( int number ) {
 	// Might make cost increase after each one, for diminishing returns.
-	if ( game.getPoints() >= (number * this->cost)) {
+	if ( game.getPoints() >= (number * this->cost) ) {
 		game.subtractPoints(number * this->cost);
 		this->amount += number;
 		return true;
@@ -80,7 +87,7 @@ bool PointGenerator::BuyAmount( int number ) {
 		// I might want to buy as many as possible under the number specified.
 		// Use BuyMax for that
 		fprintf(stderr, "Not Enough Points;\n");
-		fprintf(stderr, "There are %f points available,\n", game.getPoints());
+		fprintf(stderr, "You have %f points available,\n", game.getPoints());
 		fprintf(stderr, "but you tried to buy %i PointGenerators for %f points\n", number, number * this->cost);
 		return false;
 	}

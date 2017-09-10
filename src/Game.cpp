@@ -45,7 +45,7 @@ void Game::setPoints( double points) {
 	this->gamePoints = points;
 }
 
-double Game::getPoints() {
+double Game::getPoints( void ) {
 	return this->gamePoints;
 }
 

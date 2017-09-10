@@ -12,15 +12,15 @@
 
 class Game {
 public:
-	Game();
-	virtual ~Game();
+	Game( void );
+	virtual ~Game( void );
 	double gamePoints;
 	std::chrono::_V2::system_clock::time_point newTime;
 	std::chrono::_V2::system_clock::time_point oldTime;
 	std::chrono::_V2::system_clock::duration deltaTime;
-	void updateDelta();
+	void updateDelta( void );
 	void setPoints( double points );
-	double getPoints();
+	double getPoints( void );
 	double addPoints( double points );
 	double subtractPoints( double points );
 };
