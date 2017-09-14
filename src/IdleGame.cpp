@@ -19,7 +19,7 @@
  *      cool stuff.
  */
 
-int STEPTIME = 50;
+int STEPTIME = 100;
 
 // For Interrupts (Doesn't work)
 static volatile sig_atomic_t flag = 0;
@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
 	 */
 	p.Add();
 	// Infinite loop. Turns out you can just skip the test in a for loop
-	for (int i; i<1000; i++) {
+	for (int i; ; i++) {
 		// Figure out deltaTime
 		game.updateDelta();
 
@@ -66,8 +66,9 @@ int main(int argc, char** argv) {
 			 * (It's broken into two lines do to weird run order.)
 			 */
 			if(i%100==0) {
-				printf("Bought %i PointGenerators for a total of ", p.BuyPartMax(0.1));
-				printf("%i\n", p.getAmount());
+				p.BuyPercentMax(10);
+				//printf("Bought %i PointGenerators for a total of ", p.BuyPartMax(0.1));
+				//printf("%i\n", p.getAmount());
 			}
 		}
 			if(flag) {
@@ -83,6 +84,7 @@ int main(int argc, char** argv) {
 		//printf("%li\n", deltaTime); // TODO: Find out how to print durations
 	}
 	// Broken out of the loop, finish up.
+	printf("Game Done\n");
 	printf("There are %i PointGenerators.\n", p.getAmount());
 	printf("There are %f gamePoints.\n", game.getPoints());
 

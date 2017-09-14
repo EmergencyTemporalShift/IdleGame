@@ -82,13 +82,17 @@ bool PointGenerator::BuyAmount( int number ) {
 	if ( game.getPoints() >= (number * this->cost) ) {
 		game.subtractPoints(number * this->cost);
 		this->amount += number;
+		printf("\n");
+		printf("Bought %i PointGenerators\n", number);
+		printf("With the price totaling %i\n", (int) (number * this->cost));
+		printf("Making for a total of %i.\n\n", (int) this->amount);
 		return true;
 	} else {
 		// I might want to buy as many as possible under the number specified.
 		// Use BuyMax for that
 		fprintf(stderr, "Not Enough Points;\n");
-		fprintf(stderr, "You have %f points available,\n", game.getPoints());
-		fprintf(stderr, "but you tried to buy %i PointGenerators for %f points\n", number, number * this->cost);
+		fprintf(stderr, "You have %i points available,\n", (int) game.getPoints());
+		fprintf(stderr, "but you tried to buy %i PointGenerators for %i points\n\n", number, (int) number * this->cost);
 		return false;
 	}
 }
@@ -104,8 +108,8 @@ int PointGenerator::BuyMax( void ) {
 	return numberToBuy;
 }
 
-int PointGenerator::BuyPartMax( float partOfMax ) {
-	int numberToBuy = game.getPoints() * partOfMax / this->cost + 1; // Round up
+int PointGenerator::BuyPercentMax( float percentOfMax ) { // Never buys. TODO: Fix. Wait, does it?
+	int numberToBuy = game.getPoints() * (percentOfMax / 100) / this->cost;
 	PointGenerator::BuyAmount( numberToBuy );
 	return numberToBuy;
 }
