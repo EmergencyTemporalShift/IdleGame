@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
 			 * (It's broken into two lines do to weird run order.)
 			 */
 			if(i%100==0) {
-				p.BuyPercentMax(10);
+				p.BuyPercentMax(5);
 				//printf("Bought %i PointGenerators for a total of ", p.BuyPartMax(0.1));
 				//printf("%i\n", p.getAmount());
 			}
