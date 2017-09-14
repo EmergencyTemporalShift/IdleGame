@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
 	// This causes a segfault in bash and does nothing in eclipse
 	signal(SIGINT, sigint);
 	// Define the first generator
-	PointGenerator p(1, 1);
+	PointGenerator p(game, 1, 1);
 
 	/* Give a free generator to get started out.
 	 * After all, manual collection is silly because it just
@@ -58,8 +58,10 @@ int main(int argc, char** argv) {
 			 * %f shows 0.000000, but %g shows really small numbers like 1.97626e-323
 			 * Does this have to do with the way doubles are stored?
 			 * TODO: Find a way to display globalPoints properly
+			 * This only works for one pointGenerator
+			 *  TODO fix (Use pointers?)
 			 */
-			printf("Total Points: %g\n", game.getPoints());
+			printf("Total Points: %g\n", p.game.getPoints());
 
 			/*
 			 * Buy as many PointGenerators as it can and prints how many it bought

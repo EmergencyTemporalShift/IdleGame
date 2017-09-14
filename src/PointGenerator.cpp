@@ -13,7 +13,7 @@
 
 // TODO: Refactor to use a game as an argument
 // That way multiple games can run at once
-extern Game game;
+//extern Game game;
 
 int PointGenerator::numGenerators = 0;
 // These complain if defined in the header and don't if defined here
@@ -21,12 +21,10 @@ static std::list<PointGenerator> allGenerators;
 // I'm going to be honest, I have no idea what the iterator is for.
 //static std::list<PointGenerator>::iterator genIter = allGenerators.begin();
 
-PointGenerator::PointGenerator(float cost, float pointRate) {
+PointGenerator::PointGenerator(Game game, float cost, float pointRate) {
+	this->game = game;
 	this->cost = cost;
 	this->pointRate = pointRate;
-	// I don't actually know how to auto allocate indexes
-	// that play well with deleting PointGenerators/Elements.
-	// So I'm manually specifying the index instead.
 	this->index = numGenerators;
 	PointGenerator::numGenerators += 1;
 	this->amount = 0;
@@ -95,8 +93,8 @@ bool PointGenerator::BuyAmount( int number ) {
 		// Use BuyMax for that
 		fprintf(stderr, "\n");
 		fprintf(stderr, "Not Enough Points;\n");
-		fprintf(stderr, "You have %i points available,\n", (int) game.getPoints());
-		fprintf(stderr, "but you tried to buy %i PointGenerators for %i points\n\n", number, (int) number * this->cost);
+		fprintf(stderr, "You have %i points available,\n", (int) this->game.getPoints());
+		fprintf(stderr, "but you tried to buy %i PointGenerators for %i points\n\n", number, (int) (number * this->cost));
 		return false;
 	}
 }
@@ -107,13 +105,13 @@ bool PointGenerator::Buy( void ) {
 
 int PointGenerator::BuyMax( void ) {
 	// This won't work if price doesn't remain constant.
-	int numberToBuy = game.getPoints() / this->cost;
+	int numberToBuy = this->game.getPoints() / this->cost;
 	PointGenerator::BuyAmount( numberToBuy );
 	return numberToBuy;
 }
 
 int PointGenerator::BuyPercentMax( float percentOfMax ) { // Never buys. TODO: Fix. Wait, does it?
-	int numberToBuy = game.getPoints() * (percentOfMax / 100) / this->cost;
+	int numberToBuy = this->game.getPoints() * (percentOfMax / 100) / this->cost;
 	PointGenerator::BuyAmount( numberToBuy );
 	return numberToBuy;
 }
@@ -128,17 +126,19 @@ static double GenerateAllPoints( void ) {
 	return totalPointsGenerated;
 }
 // One of the next two functions might be better?
+/*
 static double GeneratePoints( PointGenerator pointGenerator ) {
 	// TODO: Make this use delta time;
 	double pointsGenerated = pointGenerator.amount * pointGenerator.pointRate;
-	game.addPoints( pointsGenerated );
+	this->game.addPoints( pointsGenerated );
 	return pointsGenerated;
 	}
+*/
 
 double PointGenerator::GeneratePoints( void ) {
 	// TODO: Make this use delta time;
 	double pointsGenerated = this->amount * this->pointRate;
-	game.addPoints( pointsGenerated );
+	this->game.addPoints( pointsGenerated );
 	return pointsGenerated;
 	}
 

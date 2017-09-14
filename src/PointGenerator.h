@@ -6,13 +6,14 @@
  */
 
 #include <list>
+#include "Game.h"
 
 #ifndef SRC_POINTGENERATOR_H_
 #define SRC_POINTGENERATOR_H_
 
 class PointGenerator {
 public:
-	PointGenerator(float cost, float pointRate);
+	PointGenerator(Game game, float cost, float pointRate);
 	virtual ~PointGenerator( void );
 	static int numGenerators;
 	// The compiler complains when these are defined here.
@@ -23,6 +24,7 @@ public:
 	int amount;       // How many of this PointGenerator are owned
 	double cost;      // How much does this PointGenerator cost
 	double pointRate; // How many points does this PointGenerator give
+	Game game;        // Reference? to the game object
 
 	void collapseAllGenerators( void );
 
