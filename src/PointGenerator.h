@@ -12,7 +12,7 @@
 
 class PointGenerator {
 public:
-	PointGenerator(float cost, float pointRate, int index);
+	PointGenerator(float cost, float pointRate);
 	virtual ~PointGenerator( void );
 	static int numGenerators;
 	// The compiler complains when these are defined here.

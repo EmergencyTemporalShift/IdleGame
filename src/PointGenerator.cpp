@@ -11,6 +11,8 @@
 
 #include "Game.h"
 
+// TODO: Refactor to use a game as an argument
+// That way multiple games can run at once
 extern Game game;
 
 int PointGenerator::numGenerators = 0;
@@ -19,15 +21,16 @@ static std::list<PointGenerator> allGenerators;
 // I'm going to be honest, I have no idea what the iterator is for.
 //static std::list<PointGenerator>::iterator genIter = allGenerators.begin();
 
-PointGenerator::PointGenerator(float cost, float pointRate, int index) {
+PointGenerator::PointGenerator(float cost, float pointRate) {
 	this->cost = cost;
 	this->pointRate = pointRate;
 	// I don't actually know how to auto allocate indexes
 	// that play well with deleting PointGenerators/Elements.
 	// So I'm manually specifying the index instead.
-	this->index = index;
-	this->amount = 0;
+	this->index = numGenerators;
 	PointGenerator::numGenerators += 1;
+	this->amount = 0;
+
 	// Here is where my problem is. What are the correct arguments for this function?
 	// TODO: XXX: Fix arguments.
 	//allGenerators.insert(genIter, this);
@@ -78,18 +81,19 @@ int PointGenerator::BuyUpTo( int number ) {
 }
 
 bool PointGenerator::BuyAmount( int number ) {
-	// Might make cost increase after each one, for diminishing returns.
+	// Might make cost increase for each bought, for diminishing returns.
 	if ( game.getPoints() >= (number * this->cost) ) {
 		game.subtractPoints(number * this->cost);
 		this->amount += number;
 		printf("\n");
 		printf("Bought %i PointGenerators\n", number);
-		printf("With the price totaling %i\n", (int) (number * this->cost));
+		printf("With a cost totaling %i\n", (int) (number * this->cost));
 		printf("Making for a total of %i.\n\n", (int) this->amount);
 		return true;
 	} else {
 		// I might want to buy as many as possible under the number specified.
 		// Use BuyMax for that
+		fprintf(stderr, "\n");
 		fprintf(stderr, "Not Enough Points;\n");
 		fprintf(stderr, "You have %i points available,\n", (int) game.getPoints());
 		fprintf(stderr, "but you tried to buy %i PointGenerators for %i points\n\n", number, (int) number * this->cost);

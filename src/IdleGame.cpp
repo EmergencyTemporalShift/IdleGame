@@ -19,7 +19,7 @@
  *      cool stuff.
  */
 
-int STEPTIME = 100;
+int STEPTIME = 25;
 
 // For Interrupts (Doesn't work)
 static volatile sig_atomic_t flag = 0;
@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
 	// This causes a segfault in bash and does nothing in eclipse
 	signal(SIGINT, sigint);
 	// Define the first generator
-	PointGenerator p(16, 1, 0);
+	PointGenerator p(1, 1);
 
 	/* Give a free generator to get started out.
 	 * After all, manual collection is silly because it just
@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
 	 */
 	p.Add();
 	// Infinite loop. Turns out you can just skip the test in a for loop
-	for (int i; ; i++) {
+	for (int i; i<10000; i++) {
 		// Figure out deltaTime
 		game.updateDelta();
 
