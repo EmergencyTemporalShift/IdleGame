@@ -1,10 +1,9 @@
 #include <stdlib.h>
 #include <chrono>
 #include <list>
-//#ifndef PointGenerator
-	#include "PointGenerator.h"
-//#endif
 
+#pragma once
+#include "PointGenerator.h"
 
 /*
  * Game.h
