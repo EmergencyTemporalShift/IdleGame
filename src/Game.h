@@ -1,5 +1,11 @@
 #include <stdlib.h>
 #include <chrono>
+#include <list>
+//#ifndef PointGenerator
+	#include "PointGenerator.h"
+//#endif
+
+
 /*
  * Game.h
  *
@@ -14,7 +20,9 @@ class Game {
 public:
 	Game( void );
 	virtual ~Game( void );
-	double gamePoints;
+	double gamePoints; // How many points this game has
+	std::list<PointGenerator> gameGenerators;
+
 	std::chrono::_V2::system_clock::time_point newTime;
 	std::chrono::_V2::system_clock::time_point oldTime;
 	std::chrono::_V2::system_clock::duration deltaTime;

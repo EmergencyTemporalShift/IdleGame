@@ -9,7 +9,7 @@
 #include "stdio.h"
 #include <list>
 
-#include "Game.h"
+//#include "Game.h"
 
 // TODO: Refactor to use a game as an argument
 // That way multiple games can run at once

@@ -6,7 +6,7 @@
  */
 
 #include <list>
-#include "Game.h"
+//#include "Game.h"
 
 #ifndef SRC_POINTGENERATOR_H_
 #define SRC_POINTGENERATOR_H_
