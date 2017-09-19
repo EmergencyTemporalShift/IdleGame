@@ -7,6 +7,7 @@
 
 #include <list>
 #include "Game.h"
+struct Game;
 
 #ifndef SRC_POINTGENERATOR_H_
 #define SRC_POINTGENERATOR_H_
@@ -21,10 +22,10 @@ public:
 	//static std::list<PointGenerator>::iterator genIter;
 
 	int index;
-	int amount;       // How many of this PointGenerator are owned
-	double cost;      // How much does this PointGenerator cost
-	double pointRate; // How many points does this PointGenerator give
-	Game game;        // Reference? to the game object
+	int amount;         // How many of this PointGenerator are owned
+	double cost;        // How much does this PointGenerator cost
+	double pointRate;   // How many points does this PointGenerator give
+	Game game();        // Reference? to the game object. This might need to be a pointer.
 
 	void collapseAllGenerators( void );
 
