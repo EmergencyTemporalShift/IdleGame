@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <chrono>
 #include <list>
 
 #pragma once
@@ -19,17 +17,16 @@ class Game {
 public:
 	Game( void );
 	virtual ~Game( void );
-	double gamePoints; // How many points this game has
-	std::list<PointGenerator> gameGenerators;
+	double gamePoints;                        // How many points this game has
+	int numGenerators;                        // How many PointGenerators this game has
+	std::list<PointGenerator> gameGenerators; // A list of all PointGenerators owned by this game
 
-	std::chrono::_V2::system_clock::time_point newTime;
-	std::chrono::_V2::system_clock::time_point oldTime;
-	std::chrono::_V2::system_clock::duration deltaTime;
-	void updateDelta( void );
+
 	void setPoints( double points );
 	double getPoints( void );
 	double addPoints( double points );
 	double subtractPoints( double points );
+	int getNumberOfGenerators( void );
 };
 
 #endif /* SRC_GAME_H_ */

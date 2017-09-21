@@ -15,19 +15,15 @@
 // That way multiple games can run at once
 //extern Game game;
 
-int PointGenerator::numGenerators = 0;
-// These complain if defined in the header and don't if defined here
-static std::list<PointGenerator> allGenerators;
-// I'm going to be honest, I have no idea what the iterator is for.
-//static std::list<PointGenerator>::iterator genIter = allGenerators.begin();
 
-PointGenerator::PointGenerator(Game game, float cost, float pointRate) {
-	this->game = game;
+
+PointGenerator::PointGenerator(Game *game, float cost, float pointRate) {
+	this->game = &game;
 	this->cost = cost;
-	this->pointRate = pointRate;
-	this->index = numGenerators;
-	PointGenerator::numGenerators += 1;
 	this->amount = 0;
+	this->pointRate = pointRate;
+	this->index = *game::numGenerators;
+	Game::numGenerators += 1;
 
 	// Here is where my problem is. What are the correct arguments for this function?
 	// TODO: XXX: Fix arguments.
@@ -38,7 +34,7 @@ PointGenerator::~PointGenerator() {
 	// TODO: Deconstruct stuff? Going to be honest, I have no idea what to do here.
 
 	// Decrease the total amount of generators
-	PointGenerator::numGenerators -= 1;
+	this->game::numGenerators -= 1;
 	// TODO: Change genIter to point to the wanted PointGenerator maybe?
 	//allGenerators.erase(genIter);
 }
@@ -68,7 +64,7 @@ int PointGenerator::Subtract( void ) {
 
 // I think this works, test later
 int PointGenerator::BuyUpTo( int number ) {
-	int max = ( game.getPoints() / this->cost );
+	int max = ( *game.getPoints() / this->cost );
 	if (number > max) {
 		PointGenerator::BuyAmount( max );
 		return max;
@@ -111,7 +107,7 @@ int PointGenerator::BuyMax( void ) {
 }
 
 int PointGenerator::BuyPercentMax( float percentOfMax ) { // Never buys. TODO: Fix. Wait, does it?
-	int numberToBuy = this->game.getPoints() * (percentOfMax / 100) / this->cost;
+	int numberToBuy = this->*game.getPoints() * (percentOfMax / 100) / this->cost;
 	PointGenerator::BuyAmount( numberToBuy );
 	return numberToBuy;
 }
