@@ -10,7 +10,7 @@
 
 
 
-MetaGame::MetaGame() {
+MetaGame::MetaGame( void ) {
 	//std::chrono::high_resolution_clock Clock;
 
 	std::chrono::_V2::system_clock::time_point newTime   = std::chrono::high_resolution_clock::now();
@@ -18,11 +18,11 @@ MetaGame::MetaGame() {
 	std::chrono::_V2::system_clock::duration   deltaTime = newTime - oldTime;
 }
 
-MetaGame::~MetaGame() {
+MetaGame::~MetaGame( void ) {
 	// TODO Auto-generated destructor stub
 }
 
-void MetaGame::updateDelta() {
+void MetaGame::updateDelta( void ) {
 	this->oldTime   = newTime;
 	this->newTime   = std::chrono::_V2::system_clock::now();
 	this->deltaTime = newTime - oldTime;

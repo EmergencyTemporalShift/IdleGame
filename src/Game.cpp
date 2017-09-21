@@ -50,3 +50,13 @@ double Game::subtractPoints( double points ) {
 int Game::getNumberOfGenerators( void ) {
 	return numGenerators;
 }
+
+static double GenerateAllPoints( void ) {
+	double totalPointsGenerated = 0;
+	std::list<PointGenerator>::iterator genIter;
+	for (genIter = allGenerators.begin(); genIter != allGenerators.end(); ++genIter) {
+		//How do you use iterators?
+		//totalPointsGenerated += *genIterGeneratePoints(  );//GeneratePoints( genIter* );
+	}
+	return totalPointsGenerated;
+}

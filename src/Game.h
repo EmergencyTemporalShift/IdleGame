@@ -27,6 +27,7 @@ public:
 	double addPoints( double points );
 	double subtractPoints( double points );
 	int getNumberOfGenerators( void );
+	static double GenerateAllPoints( void );
 };
 
 #endif /* SRC_GAME_H_ */

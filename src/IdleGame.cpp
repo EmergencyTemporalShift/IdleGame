@@ -7,6 +7,7 @@
 
 #include "PointGenerator.h"
 #include "Game.h"
+#include "MetaGame.h"
 
 /*
  * Idle Game

@@ -8,7 +8,9 @@
 #ifndef SRC_METAGAME_H_
 #define SRC_METAGAME_H_
 
-static class MetaGame {
+#include <chrono>
+
+class MetaGame {
 public:
 	MetaGame( void );
 	virtual ~MetaGame( void );
