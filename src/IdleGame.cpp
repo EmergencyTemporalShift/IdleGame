@@ -12,7 +12,7 @@
 /*
  * Idle Game
  *
- *  Created on: Aug 14, 2017
+ *  Created on: 2017-08-14
  *      Author: EmergencyTemporalShift
  *
  *      The purpose of this is to make a simple iteration/idle game
@@ -20,7 +20,7 @@
  *      cool stuff.
  */
 
-int STEPTIME = 25;
+int STEPTIME = 15;
 
 // For Interrupts (Doesn't work)
 static volatile sig_atomic_t flag = 0;
@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
 		 * TODO: Make dependent on time (Event driven?)
 		 */
 		if(i%10==0) {
-			printf("New Points: %i, ", (int) p.GeneratePoints( ));
+			printf("New Points: %li, ", (long int) p.GeneratePoints( ));
 			/*
 			 * %f shows 0.000000, but %g shows really small numbers like 1.97626e-323
 			 * Does this have to do with the way doubles are stored?

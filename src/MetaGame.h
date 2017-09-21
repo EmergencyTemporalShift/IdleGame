@@ -1,7 +1,7 @@
 /*
  * MetaGame.h
  *
- *  Created on: Sep 21, 2017
+ *  Created on: 2017-09-21
  *      Author: EmergencyTemporalShift
  */
 

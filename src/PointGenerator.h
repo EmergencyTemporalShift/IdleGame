@@ -1,7 +1,7 @@
 /*
  * PointGenerator.h
  *
- *  Created on: Aug 14, 2017
+ *  Created on: 2017-08-14
  *      Author: EmergencyTemporalShift
  */
 
@@ -18,7 +18,7 @@ public:
 	virtual ~PointGenerator( void );
 
 	int index;          // What is the index of this pointGenerator
-	int amount;         // How many of this PointGenerator are owned
+	long int amount;         // How many of this PointGenerator are owned
 	double cost;        // How much does this PointGenerator cost
 	double pointRate;   // How many points does this PointGenerator give
 	Game *game;        // Reference? to the game object. This might need to be a pointer.
