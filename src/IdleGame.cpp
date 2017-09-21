@@ -7,6 +7,7 @@
 
 #include "PointGenerator.h"
 #include "Game.h"
+#include "MetaGame.h"
 
 /*
  * Idle Game
@@ -28,14 +29,14 @@ void sigint(int sig) { // can be called asynchronously
 }
 
 // Define the game
-Game game = Game();
-
+MetaGame mGame = MetaGame();
+Game     game  = Game();
 
 int main(int argc, char** argv) {
 	// This causes a segfault in bash and does nothing in eclipse
 	signal(SIGINT, sigint);
 	// Define the first generator
-	PointGenerator p(game, 1, 1);
+	PointGenerator p(&game, 1, 1);
 
 	/* Give a free generator to get started out.
 	 * After all, manual collection is silly because it just
@@ -45,7 +46,7 @@ int main(int argc, char** argv) {
 	// Infinite loop. Turns out you can just skip the test in a for loop
 	for (int i; i<10000; i++) {
 		// Figure out deltaTime
-		game.updateDelta();
+		mGame.updateDelta();
 
 		/*
 		 * Prints how many points are generated (by generating them) and
@@ -61,7 +62,7 @@ int main(int argc, char** argv) {
 			 * This only works for one pointGenerator
 			 *  TODO fix (Use pointers?)
 			 */
-			printf("Total Points: %g\n", p.game.getPoints());
+			printf("Total Points: %g\n", game.getPoints());
 
 			/*
 			 * Buy as many PointGenerators as it can and prints how many it bought

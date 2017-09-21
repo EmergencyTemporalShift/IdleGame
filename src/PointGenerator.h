@@ -7,24 +7,21 @@
 
 #include <list>
 #include "Game.h"
+struct Game;
 
 #ifndef SRC_POINTGENERATOR_H_
 #define SRC_POINTGENERATOR_H_
 
 class PointGenerator {
 public:
-	PointGenerator(Game game, float cost, float pointRate);
+	PointGenerator(Game *game, float cost, float pointRate);
 	virtual ~PointGenerator( void );
-	static int numGenerators;
-	// The compiler complains when these are defined here.
-	//static std::list<PointGenerator> allGenerators;
-	//static std::list<PointGenerator>::iterator genIter;
 
-	int index;
-	int amount;       // How many of this PointGenerator are owned
-	double cost;      // How much does this PointGenerator cost
-	double pointRate; // How many points does this PointGenerator give
-	Game game;        // Reference? to the game object
+	int index;          // What is the index of this pointGenerator
+	int amount;         // How many of this PointGenerator are owned
+	double cost;        // How much does this PointGenerator cost
+	double pointRate;   // How many points does this PointGenerator give
+	Game *game;        // Reference? to the game object. This might need to be a pointer.
 
 	void collapseAllGenerators( void );
 

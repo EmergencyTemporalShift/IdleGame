@@ -16,28 +16,18 @@
 
 #include "Game.h"
 
-//std::chrono::high_resolution_clock Clock;
-
-std::chrono::_V2::system_clock::time_point newTime   = std::chrono::high_resolution_clock::now();
-std::chrono::_V2::system_clock::time_point oldTime   = newTime;
-std::chrono::_V2::system_clock::duration   deltaTime = newTime - oldTime;
-
+// These complain if defined in the header and don't if defined here
+std::list<PointGenerator> allGenerators;
+// I'm going to be honest, I have no idea what the iterator is for.
+//static std::list<PointGenerator>::iterator genIter = allGenerators.begin();
 
 Game::Game() {
+	numGenerators = 0;
 	gamePoints = 0;
 }
 
 Game::~Game() {
 	// TODO Auto-generated destructor stub
-}
-
-
-
-
-void Game::updateDelta() {
-	this->oldTime   = newTime;
-	this->newTime   = std::chrono::_V2::system_clock::now();
-	this->deltaTime = newTime - oldTime;
 }
 
 
@@ -55,4 +45,18 @@ double Game::addPoints( double points ) {
 
 double Game::subtractPoints( double points ) {
 	return this->gamePoints -= points;
+}
+
+int Game::getNumberOfGenerators( void ) {
+	return numGenerators;
+}
+
+static double GenerateAllPoints( void ) {
+	double totalPointsGenerated = 0;
+	std::list<PointGenerator>::iterator genIter;
+	for (genIter = allGenerators.begin(); genIter != allGenerators.end(); ++genIter) {
+		//How do you use iterators?
+		//totalPointsGenerated += *genIterGeneratePoints(  );//GeneratePoints( genIter* );
+	}
+	return totalPointsGenerated;
 }
