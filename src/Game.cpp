@@ -1,11 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <chrono>
-#include <thread>
-#include <signal.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <chrono>
+//#include <thread>
+//#include <signal.h>
 
 
 #include "PointGenerator.h"
+#include "Game.h"
 
 /*
  * Game.cpp
@@ -14,16 +15,14 @@
  *      Author: EmergencyTemporalShift
  */
 
-#include "Game.h"
-
-// These complain if defined in the header and don't if defined here
-std::list<PointGenerator> allGenerators;
-// I'm going to be honest, I have no idea what the iterator is for.
-//static std::list<PointGenerator>::iterator genIter = allGenerators.begin();
 
 Game::Game() {
 	numGenerators = 0;
 	gamePoints = 0;
+	std::list<PointGenerator> gameGenerators;
+	// I'm going to be honest, I have no idea what the iterator is for.
+	//static std::list<PointGenerator>::iterator genIter = allGenerators.begin();
+
 }
 
 Game::~Game() {
@@ -32,29 +31,29 @@ Game::~Game() {
 
 
 void Game::setPoints( double points) {
-	this->gamePoints = points;
+	gamePoints = points;
 }
 
 double Game::getPoints( void ) {
-	return this->gamePoints;
+	return gamePoints;
 }
 
 double Game::addPoints( double points ) {
-	return this->gamePoints += points;
+	return gamePoints += points;
 }
 
 double Game::subtractPoints( double points ) {
-	return this->gamePoints -= points;
+	return gamePoints -= points;
 }
 
-int Game::getNumberOfGenerators( void ) {
+int Game::getNumberOfGeneratorTypes( void ) {
 	return numGenerators;
 }
 
-static double GenerateAllPoints( void ) {
+double Game::GenerateAllPoints( void ) {
 	double totalPointsGenerated = 0;
 	std::list<PointGenerator>::iterator genIter;
-	for (genIter = allGenerators.begin(); genIter != allGenerators.end(); ++genIter) {
+	for (genIter = gameGenerators.begin(); genIter != gameGenerators.end(); ++genIter) {
 		//How do you use iterators?
 		//totalPointsGenerated += *genIterGeneratePoints(  );//GeneratePoints( genIter* );
 	}

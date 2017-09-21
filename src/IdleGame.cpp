@@ -1,13 +1,11 @@
+#include <signal.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <chrono>
 #include <thread>
-#include <signal.h>
 
-
-#include "PointGenerator.h"
 #include "Game.h"
 #include "MetaGame.h"
+#include "PointGenerator.h"
 
 /*
  * Idle Game

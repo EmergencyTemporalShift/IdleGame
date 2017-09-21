@@ -34,7 +34,7 @@ PointGenerator::~PointGenerator() {
 	// TODO: Deconstruct stuff? Going to be honest, I have no idea what to do here.
 
 	// Decrease the total amount of generators
-	this->game->numGenerators -= 1;
+	game->numGenerators -= 1;
 	// TODO: Change genIter to point to the wanted PointGenerator maybe?
 	//allGenerators.erase(genIter);
 }
@@ -47,7 +47,7 @@ void PointGenerator::collapseAllGenerators( void ) {
 }
 
 int PointGenerator::AddAmount( int number ) {
-	return this->amount += number;
+	return amount += number;
 }
 
 int PointGenerator::Add( void ) {
@@ -55,7 +55,7 @@ int PointGenerator::Add( void ) {
 }
 
 int PointGenerator::SubtractAmount( int number ) {
-	return this->amount -= number;
+	return amount -= number;
 }
 
 int PointGenerator::Subtract( void ) {
@@ -76,13 +76,13 @@ int PointGenerator::BuyUpTo( int number ) {
 
 bool PointGenerator::BuyAmount( int number ) {
 	// Might make cost increase for each bought, for diminishing returns.
-	if ( game->getPoints() >= (number * this->cost) ) {
-		game->subtractPoints(number * this->cost);
-		this->amount += number;
+	if ( game->getPoints() >= (number * cost) ) {
+		game->subtractPoints(number * cost);
+		amount += number;
 		printf("\n");
 		printf("Bought %i PointGenerators\n", number);
-		printf("With a cost totaling %i\n", (int) (number * this->cost));
-		printf("Making for a total of %i.\n\n", (int) this->amount);
+		printf("With a cost totaling %i\n", (int) (number * cost));
+		printf("Making for a total of %i.\n\n", (int) amount);
 		return true;
 	} else {
 		// I might want to buy as many as possible under the number specified.
@@ -101,13 +101,13 @@ bool PointGenerator::Buy( void ) {
 
 int PointGenerator::BuyMax( void ) {
 	// This won't work if price doesn't remain constant.
-	int numberToBuy = game->getPoints() / this->cost;
+	int numberToBuy = game->getPoints() / cost;
 	PointGenerator::BuyAmount( numberToBuy );
 	return numberToBuy;
 }
 
 int PointGenerator::BuyPercentMax( float percentOfMax ) { // Never buys. TODO: Fix. Wait, does it?
-	int numberToBuy = game->getPoints() * (percentOfMax / 100) / this->cost;
+	int numberToBuy = game->getPoints() * (percentOfMax / 100) / cost;
 	PointGenerator::BuyAmount( numberToBuy );
 	return numberToBuy;
 }
@@ -124,13 +124,13 @@ static double GeneratePoints( PointGenerator pointGenerator ) {
 
 double PointGenerator::GeneratePoints( void ) {
 	// TODO: Make this use delta time;
-	double pointsGenerated = this->amount * this->pointRate;
+	double pointsGenerated = this->amount * pointRate;
 	game->addPoints( pointsGenerated );
 	return pointsGenerated;
 	}
 
 int PointGenerator::getAmount( void ) {
-	return this->amount;
+	return amount;
 }
 
 void PointGenerator::setAmount( int amount ) {

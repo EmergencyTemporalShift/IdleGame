@@ -5,8 +5,6 @@
  *      Author: EmergencyTemporalShift
  */
 
-#include <list>
-#include "Game.h"
 struct Game;
 
 #ifndef SRC_POINTGENERATOR_H_
